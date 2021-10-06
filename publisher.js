@@ -1,6 +1,6 @@
 const advanceMessageQueue = require("amqplib");   
 
-const message = {number:22}
+const message = {number:process.argv[2]}
 
 const connect = async () => {
     try {
@@ -8,7 +8,9 @@ const connect = async () => {
         const channel = await connection.createChannel(); 
         const result = await channel.assertQueue("jobs"); 
         channel.sendToQueue("jobs",Buffer.from(JSON.stringify(message))); 
-        console.log("Job sent successfully",message.number); 
+        console.log("Job sent successfully",message.number);  
+        channel.close(); 
+        connection.close();
     } catch (err) {
         console.error(err); 
     }
