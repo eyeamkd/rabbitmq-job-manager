@@ -9,8 +9,8 @@ const connect = async () => {
         const result = await channel.assertQueue("jobs"); 
         channel.sendToQueue("jobs",Buffer.from(JSON.stringify(message))); 
         console.log("Job sent successfully",message.number);  
-        channel.close(); 
-        connection.close();
+        // channel.close(); 
+        // connection.close();
     } catch (err) {
         console.error(err); 
     }
